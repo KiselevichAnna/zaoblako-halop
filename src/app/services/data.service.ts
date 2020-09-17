@@ -1,55 +1,78 @@
-import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { Injectable } from '@angular/core';
-import { Todo } from '../interfaces/todo';
+import {Injectable} from '@angular/core';
+import {Todo} from '../interfaces/todo';
 
 @Injectable({
-    providedIn: 'root', })
+  providedIn: 'root',
+})
 
-  export class DataService  {
-    
-      private _data: Todo[] = [
-        { 
-            id: 1, 
-            name: "Занятие по Angular", 
-            status: true, 
-            deleted: false, 
-            description: "Изучить 2 урока"
-        },
+export class DataService {
 
-        { 
-            id: 2, 
-            name: "Занятие по TypeScript", 
-            status: false, 
-            deleted: true, 
-            description: "Изучить 2 урока" 
-        },
+  private data: Todo[] = localStorage.getItem('todo') ? JSON.parse(localStorage.getItem('todo')) : [
+    {
+      id: 1,
+      name: 'Занятие по Angular',
+      status: true,
+      deleted: false,
+      description: 'Изучить 2 урока'
+    },
 
-        { 
-            id: 3, 
-            name: "Занятие по React", 
-            status: false, 
-            deleted: false, 
-            description: "Изучить 2 урока"
-        },
+    {
+      id: 2,
+      name: 'Занятие по TypeScript',
+      status: false,
+      deleted: true,
+      description: 'Изучить 2 урока'
+    },
 
-        { 
-            id: 4, 
-            name: "Занятие по JavaScript", 
-            status: false, 
-            deleted: false, 
-            description: "Изучить 2 урока"
-        },
+    {
+      id: 3,
+      name: 'Занятие по React',
+      status: false,
+      deleted: false,
+      description: 'Изучить 2 урока'
+    },
 
-    ];
+    {
+      id: 4,
+      name: 'Занятие по JavaScript',
+      status: false,
+      deleted: false,
+      description: 'Изучить 2 урока'
+    },
+  ];
 
-      
 
-    getTodo(): Todo[] {
-          
-      return this._data;
+  getTodo(): Todo[] {
+    return this.data;
   }
-  addTodo(_data) {
-        
-      this._data.push(_data);
+
+  validate(todo: Todo) {
+    return !(!todo.name || !todo.description);
+  }
+
+
+  add(todo: Todo): boolean {
+
+    if (this.validate(todo)) {
+
+      todo.id = this.data.reduce((prev, current) => (prev.id > current.id) ? prev : current).id + 1;
+
+      this.data.push(todo);
+
+      localStorage.setItem('todo', JSON.stringify(this.data));
+
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  update(todo: Todo) {
+    this.data.map(dataTodo => {
+      if (dataTodo.id === todo.id) {
+        dataTodo = todo;
+      }
+    });
+    localStorage.setItem('todo', JSON.stringify(this.data));
   }
 }
