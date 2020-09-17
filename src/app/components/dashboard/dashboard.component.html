@@ -1,0 +1,45 @@
+<div class="page-header">
+  <h1> Список дел </h1>
+</div>
+<div class="panel">
+  <div class="form-inline">
+    <div class="form-group">
+      <div class="col-md-5">
+        <input type="number" class="form-control" [(ngModel)]="id" placeholder="Number" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-5">
+        <input class="form-control" [(ngModel)]="name" placeholder="Name" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-5">
+        <input class="form-control" [(ngModel)]="description" placeholder="Description" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-8">
+        <button class="btn btn-default" (click)="addtodo(name, description, id)">Добавить</button>
+      </div>
+
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.description}}</td>
+          <td><input type="checkbox" [(ngModel)]="item.status" /></td>
+          <td><input type="checkbox" [(ngModel)]="item.deleted" /></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
