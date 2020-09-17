@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {Todo} from '../../interfaces/todo';
-import {DataService} from '../../services/data.service';
+import {TodoService} from '../../services/todo.service';
+import {TodoLocalStorage} from '../../services/todo-local-storage.service'
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  providers: [DataService]
+  providers: [TodoService, TodoLocalStorage]
+
 })
 export class DashboardComponent implements OnInit {
 
@@ -16,22 +18,33 @@ export class DashboardComponent implements OnInit {
 
   public newTodo = new Todo();
 
-  constructor(public dataService: DataService) {
+  constructor(public todoservice: TodoService, public todolocalstorageservice: TodoLocalStorage) {
   }
 
+  
+
   save(): void {
-    const result = this.dataService.add(this.newTodo);
+    const result = this.todolocalstorageservice.add(this.newTodo);
+    const result2 = this.todoservice.add(this.newTodo);
 
     if (result) {
+      this.newTodo = new Todo();
+    }
+
+    if (result2) {
       this.newTodo = new Todo();
     }
   }
 
   ngOnInit(): void {
-    this.todo = this.dataService.get();
+    this.todo = this.todoservice.get();
+    this.todo = this.todoservice.set();
   }
 
+  
+
   update(todo: Todo) {
-    this.dataService.update(todo);
+    this.todolocalstorageservice.update(todo);
+    this.todoservice.update(todo);
   }
 }

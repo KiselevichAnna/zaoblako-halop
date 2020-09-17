@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Todo} from '../interfaces/todo';
 
+
 @Injectable()
 
-export class DataService {
+export class TodoService {
 
-  private data: Todo[] = localStorage.getItem('todo') ? JSON.parse(localStorage.getItem('todo')) : [
+  private todos: Todo[] =  [
     {
       id: 1,
       name: 'Занятие по Angular',
@@ -36,28 +37,28 @@ export class DataService {
       status: false,
       deleted: false,
       description: 'Изучить 2 урока'
-    },
+    }
   ];
 
-
   get(): Todo[] {
-    return this.data;
+    return this.todos;
+  }
+  set(): Todo[] {
+    return this.todos;
+    
   }
 
   validate(todo: Todo) {
     return !(!todo.name || !todo.description);
   }
 
-
   add(todo: Todo): boolean {
 
     if (this.validate(todo)) {
 
-      todo.id = this.data.reduce((prev, current) => (prev.id > current.id) ? prev : current).id + 1;
+      todo.id = this.todos.reduce((prev, current) => (prev.id > current.id) ? prev : current).id + 1;
 
-      this.data.push(todo);
-
-      localStorage.setItem('todo', JSON.stringify(this.data));
+      this.todos.push(todo);
 
       return true;
     } else {
@@ -66,11 +67,11 @@ export class DataService {
   }
 
   update(todo: Todo) {
-    this.data.map(dataTodo => {
+    this.todos.map(dataTodo => {
       if (dataTodo.id === todo.id) {
         dataTodo = todo;
       }
     });
-    localStorage.setItem('todo', JSON.stringify(this.data));
+
   }
 }

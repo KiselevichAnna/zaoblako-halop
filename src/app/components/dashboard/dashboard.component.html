@@ -13,7 +13,7 @@
             <input class="form-control" name="description" [(ngModel)]="newTodo.description" placeholder="Описание"/>
           </div>
           <div class="col-md-2">
-            <button type="button" [disabled]="!dataService.validate(newTodo)" class="btn btn-primary btn-block" (click)="save()">Добавить</button>
+            <button type="button" [disabled]="!todolocalstorageservice.validate(newTodo)" class="btn btn-primary btn-block" (click)="save()">Добавить</button>
           </div>
         </div>
         <div class="row mt-3">
