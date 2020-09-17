@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
 
   public newTodo = new Todo();
 
-  constructor(private dataService: DataService) {
+  constructor(public dataService: DataService) {
   }
 
   save(): void {
