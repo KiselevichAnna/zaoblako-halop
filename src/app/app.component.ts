@@ -8,7 +8,7 @@ import {Title} from '@angular/platform-browser';
 
 })
 export class AppComponent {
-  title = 'Holop';
+  title = 'Холоп';
 
   constructor(private readonly titleService: Title) {
     this.titleService.setTitle(this.title);

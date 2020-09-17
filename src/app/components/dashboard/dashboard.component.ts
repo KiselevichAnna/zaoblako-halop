@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Todo} from '../../interfaces/todo';
 import {DataService} from '../../services/data.service';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -10,6 +9,8 @@ import {DataService} from '../../services/data.service';
   providers: [DataService]
 })
 export class DashboardComponent implements OnInit {
+
+  public showDeleted = false;
 
   public todo: Todo[] = [];
 
@@ -27,7 +28,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.todo = this.dataService.getTodo();
+    this.todo = this.dataService.get();
   }
 
   update(todo: Todo) {
