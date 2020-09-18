@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Todo} from '../interfaces/todo';
-import {TodoLocalStorage} from './todo-local-storage.service'
+import {TodoLocalStorage} from './todo-local-storage.service';
 
 @Injectable()
 
 export class TodoService {
 
-  private todos: Todo[] =  [
+  private data: Todo[] = this.todoLocalStorage.get() ? this.todoLocalStorage.get() : [
     {
       id: 1,
       name: 'Занятие по Angular',
@@ -40,51 +40,39 @@ export class TodoService {
     }
   ];
 
-  
-  
+  constructor(private todoLocalStorage: TodoLocalStorage) {
+  };
 
   get(): Todo[] {
-    return this.todos;
+    return this.data;
   }
 
-  public todo: Todo[] = [];
-  public newTodo = new Todo();
-  
-  constructor(private todoLocalStorage: TodoLocalStorage) {};
-  
-  
   validate(todo: Todo) {
     return !(!todo.name || !todo.description);
   }
 
   add(todo: Todo): boolean {
-
     if (this.validate(todo)) {
 
-      todo.id = this.todos.reduce((prev, current) => (prev.id > current.id) ? prev : current).id + 1;
+      todo.id = this.data.reduce((prev, current) => (prev.id > current.id) ? prev : current).id + 1;
 
-      this.todos.push(todo);
-     this.todoLocalStorage.add(this.newTodo);
-      
+      this.data.push(todo);
+
+      this.todoLocalStorage.set(this.data);
 
       return true;
     } else {
       return false;
     }
-    
-    
   }
 
-
   update(todo: Todo) {
-    this.todos.map(dataTodo => {
+    this.data.map(dataTodo => {
       if (dataTodo.id === todo.id) {
         dataTodo = todo;
-        this.todoLocalStorage.update(todo);
       }
-
-      
     });
 
+    this.todoLocalStorage.set(this.data);
   }
 }

@@ -42,7 +42,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of todo | todoPipe:showDeleted">
+        <tr *ngFor="let item of todoService.get() | todoPipe:showDeleted">
           <td>{{item.id}}</td>
           <td>{{item.name}}</td>
           <td>{{item.description}}</td>
