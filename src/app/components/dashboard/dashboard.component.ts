@@ -7,7 +7,7 @@ import {TodoLocalStorage} from '../../services/todo-local-storage.service'
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  providers: [TodoService, TodoLocalStorage]
+  
 
 })
 export class DashboardComponent implements OnInit {
@@ -18,33 +18,28 @@ export class DashboardComponent implements OnInit {
 
   public newTodo = new Todo();
 
-  constructor(public todoservice: TodoService, public todolocalstorageservice: TodoLocalStorage) {
-  }
+  constructor(public todoService: TodoService) {
+ }
 
   
 
   save(): void {
-    const result = this.todolocalstorageservice.add(this.newTodo);
-    const result2 = this.todoservice.add(this.newTodo);
+    const result = this.todoService.add(this.newTodo);
+    
 
     if (result) {
       this.newTodo = new Todo();
     }
 
-    if (result2) {
-      this.newTodo = new Todo();
-    }
   }
 
   ngOnInit(): void {
-    this.todo = this.todoservice.get();
-    this.todo = this.todoservice.set();
+    this.todo = this.todoService.get();
   }
 
   
 
   update(todo: Todo) {
-    this.todolocalstorageservice.update(todo);
-    this.todoservice.update(todo);
+    this.todoService.update(todo);
   }
 }

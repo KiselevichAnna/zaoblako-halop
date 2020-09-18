@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Todo} from '../interfaces/todo';
-
+import {TodoLocalStorage} from './todo-local-storage.service'
 
 @Injectable()
 
@@ -40,14 +40,19 @@ export class TodoService {
     }
   ];
 
+  
+  
+
   get(): Todo[] {
     return this.todos;
   }
-  set(): Todo[] {
-    return this.todos;
-    
-  }
 
+  public todo: Todo[] = [];
+  public newTodo = new Todo();
+  
+  constructor(private todoLocalStorage: TodoLocalStorage) {};
+  
+  
   validate(todo: Todo) {
     return !(!todo.name || !todo.description);
   }
@@ -59,18 +64,26 @@ export class TodoService {
       todo.id = this.todos.reduce((prev, current) => (prev.id > current.id) ? prev : current).id + 1;
 
       this.todos.push(todo);
+     this.todoLocalStorage.add(this.newTodo);
+      
 
       return true;
     } else {
       return false;
     }
+    
+    
   }
+
 
   update(todo: Todo) {
     this.todos.map(dataTodo => {
       if (dataTodo.id === todo.id) {
         dataTodo = todo;
+        this.todoLocalStorage.update(todo);
       }
+
+      
     });
 
   }

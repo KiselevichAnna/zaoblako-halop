@@ -1,41 +1,39 @@
 import {Injectable} from '@angular/core';
 import {Todo} from '../interfaces/todo';
-import {TodoService} from './todo.service'
+
 
 @Injectable()
 
 export class TodoLocalStorage {
-
 private data: Todo[] = localStorage.getItem('todo') ? JSON.parse(localStorage.getItem('todo')) : [];
 
 
-  validate(todo: Todo) {
-    return !(!todo.name || !todo.description);
+
+add(todo: Todo): void {
+  if(localStorage.getItem('todo') == null) {
+    this.data.push(todo);
+    localStorage.setItem('todo', JSON.stringify(this.data))
+ 
+  } else {
+this.data = JSON.parse(localStorage.getItem('todo'));
+this.data.push(todo);
+localStorage.setItem('todo', JSON.stringify(this.data))
   }
+}
 
+delete(index: number): void {
+  this.data = JSON.parse(localStorage.getItem('todo'));
+  this.data.slice(index, 1);
+  localStorage.setItem('todo', JSON.stringify(this.data));
+}
 
-  add(todo: Todo): boolean {
-
-    if (this.validate(todo)) {
-
-      todo.id = this.data.reduce((prev, current) => (prev.id > current.id) ? prev : current).id + 1;
-
-      this.data.push(todo);
-
-      localStorage.setItem('todo', JSON.stringify(this.data));
-
-      return true;
-    } else {
-      return false;
+update(todo: Todo) {
+  this.data.map(dataTodo => {
+    if (dataTodo.id === todo.id) {
+      dataTodo = todo;
     }
-  }
+  });
+  localStorage.setItem('todo', JSON.stringify(this.data));
 
-  update(todo: Todo) {
-    this.data.map(dataTodo => {
-      if (dataTodo.id === todo.id) {
-        dataTodo = todo;
-      }
-    });
-    localStorage.setItem('todo', JSON.stringify(this.data));
-  }
+}
 }
