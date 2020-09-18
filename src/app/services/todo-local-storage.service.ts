@@ -6,7 +6,7 @@ import {TodoService} from './todo.service'
 
 export class TodoLocalStorage {
 
-private data: Todo[] = localStorage.getItem('todo') ? JSON.parse(localStorage.getItem('todo')) : [TodoService];
+private data: Todo[] = localStorage.getItem('todo') ? JSON.parse(localStorage.getItem('todo')) : [];
 
 
   validate(todo: Todo) {
