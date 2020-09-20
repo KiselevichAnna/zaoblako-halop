@@ -24,6 +24,12 @@
                 Показывать удаленные
               </label>
             </div>
+            <div class="form-check">
+              <input class="form-check-input" name="showTodo" type="checkbox" [(ngModel)]="showTodo" id="showTodo">
+              <label class="form-check-label" for="showTodo">
+                Показывать завершенные дела
+              </label>
+            </div>
           </div>
         </div>
       </form>
@@ -37,12 +43,12 @@
           <th>Id</th>
           <th>Название</th>
           <th>Описание</th>
-          <th></th>
-          <th></th>
+          <th>Статус</th>
+          <th>Удалить</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of todoService.get() | todoPipe:showDeleted">
+        <tr *ngFor="let item of todoService.get() | deletedPipe:showDeleted | todoPipe:showTodo ">
           <td>{{item.id}}</td>
           <td>{{item.name}}</td>
           <td>{{item.description}}</td>

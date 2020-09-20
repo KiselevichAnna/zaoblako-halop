@@ -1,5 +1,5 @@
 import {Injectable, Pipe, PipeTransform} from '@angular/core';
-import {Todo} from 'src/app/interfaces/todo';
+import {Todo} from '../interfaces/todo';
 
 @Pipe({
   name: 'todoPipe',
@@ -9,12 +9,12 @@ import {Todo} from 'src/app/interfaces/todo';
 @Injectable()
 export class TodoPipe implements PipeTransform {
 
-  transform(todos: Todo[], showDeleted: boolean) {
+  transform(todos: Todo[], showTodo: boolean) {
 
-    if (showDeleted) {
+    if (showTodo) {
       return todos;
     } else {
-      return todos.filter(todo => !todo.deleted);
+      return todos.filter(todo => !todo.status);
     }
 
   }

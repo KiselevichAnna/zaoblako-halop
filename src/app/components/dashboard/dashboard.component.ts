@@ -12,6 +12,7 @@ import {TodoService} from '../../services/todo.service';
 export class DashboardComponent {
 
   public showDeleted = false;
+  public showTodo = false;
 
   public newTodo = new Todo();
 
