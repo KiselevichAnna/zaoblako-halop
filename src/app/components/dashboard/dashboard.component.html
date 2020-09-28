@@ -48,15 +48,38 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of todoService.get() | deletedPipe:showDeleted | todoPipe:showTodo ">
-          <td>{{item.id}}</td>
-          <td>{{item.name}}</td>
-          <td>{{item.description}}</td>
-          <td><input type="checkbox" [(ngModel)]="item.status" (ngModelChange)="update(item)"/></td>
-          <td><input type="checkbox" [(ngModel)]="item.deleted" (ngModelChange)="update(item)"/></td>
+        <tr *ngFor="let todo of todoService.get() | deletedPipe:showDeleted | todoPipe:showTodo">
+          <ng-template [ngTemplateOutlet]="loadTemplate(todo)" 
+                        [ngTemplateOutletContext]="{ $implicit: todo}">
+            </ng-template>
         </tr>
         </tbody>
       </table>
+
+      <!--шаблон для чтения-->
+<ng-template #readOnlyTemplate let-todo>
+  <td>{{todo.id}}</td>
+  <td>{{todo.name}}</td>
+  <td>{{todo.description}}</td>
+  <td><input type="checkbox" [(ngModel)]="todo.status" (ngModelChange)="update(todo)"/></td>
+  <td><input type="checkbox" [(ngModel)]="todo.deleted" (ngModelChange)="update(todo)"/></td>
+  <td>
+      <input type="button" value="Изменить" class="btn btn-default" (click)="edit(todo)" />
+  </td>
+  
+</ng-template>
+ 
+<!--шаблон для редактирования-->
+<ng-template #editTemplate>
+ 
+  <td>
+      <input type="text" [(ngModel)]="newTodo.name" class="form-control" />
+  </td>
+  <td>
+      <input type="text" [(ngModel)]="newTodo.description" class="form-control" />
+  </td>
+  
+</ng-template>
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, TemplateRef, ViewChild} from '@angular/core';
 import {Todo} from '../../interfaces/todo';
 import {TodoService} from '../../services/todo.service';
 
@@ -11,13 +11,19 @@ import {TodoService} from '../../services/todo.service';
 })
 export class DashboardComponent {
 
+  //типы шаблонов
+  @ViewChild('readOnlyTemplate', {static: false}) readOnlyTemplate: TemplateRef<any>;
+  @ViewChild('editTemplate', {static: false}) editTemplate: TemplateRef<any>;
+
   public showDeleted = false;
   public showTodo = false;
-
   public newTodo = new Todo();
-
+  
+ 
   constructor(public todoService: TodoService) {
+    
   }
+
 
   save(): void {
     const result = this.todoService.add(this.newTodo);
@@ -25,6 +31,22 @@ export class DashboardComponent {
       this.newTodo = new Todo();
     }
   }
+
+ 
+
+  // редактирование пользователя
+  edit() {
+    this.newTodo = new Todo();
+  }
+
+  loadTemplate(todo: Todo) {
+    if (this.newTodo && this.newTodo.id === todo.id) {
+        return this.editTemplate;
+    } else {
+        return this.readOnlyTemplate;
+    }
+  }
+
 
   update(todo: Todo) {
     this.todoService.update(todo);

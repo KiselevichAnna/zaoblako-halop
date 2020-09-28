@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, TemplateRef, ViewChild} from '@angular/core';
 import {Todo} from '../interfaces/todo';
 import {TodoLocalStorage} from './todo-local-storage.service';
 
@@ -40,8 +40,14 @@ export class TodoService {
     }
   ];
 
+
+  
+  isNewRecord: boolean;
+
   constructor(private todoLocalStorage: TodoLocalStorage) {
   };
+
+  
 
   get(): Todo[] {
     return this.data;
@@ -57,7 +63,7 @@ export class TodoService {
       todo.id = this.data.reduce((prev, current) => (prev.id > current.id) ? prev : current).id + 1;
 
       this.data.push(todo);
-
+      this.isNewRecord = true;
       this.todoLocalStorage.set(this.data);
 
       return true;
@@ -65,6 +71,10 @@ export class TodoService {
       return false;
     }
   }
+
+  
+
+
 
   update(todo: Todo) {
     this.data.map(dataTodo => {
@@ -76,3 +86,4 @@ export class TodoService {
     this.todoLocalStorage.set(this.data);
   }
 }
+

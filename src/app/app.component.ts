@@ -11,7 +11,7 @@ import { TodoService } from './services/todo.service';
 })
 export class AppComponent {
   title = 'Холоп';
-
+ 
   constructor(private readonly titleService: Title) {
     this.titleService.setTitle(this.title);
   }

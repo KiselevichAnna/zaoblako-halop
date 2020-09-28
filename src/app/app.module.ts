@@ -12,7 +12,6 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
     DashboardComponent,
     DeletedPipe,
     TodoPipe
-
   ],
   imports: [BrowserModule, FormsModule],
   providers: [],
