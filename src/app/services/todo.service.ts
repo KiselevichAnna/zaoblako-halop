@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {Todo} from '../interfaces/todo';
-import {TodoLocalStorage} from './todo-local-storage.service';
+import { Injectable } from '@angular/core';
+import { Todo } from '../interfaces/todo';
+import { TodoLocalStorage } from './todo-local-storage.service';
 
 @Injectable()
 
@@ -47,7 +47,7 @@ export class TodoService {
     return this.data;
   }
 
-  validate(todo: Todo) {
+  validate(todo: Todo): boolean {
     return !(!todo.name || !todo.description);
   }
 
@@ -66,7 +66,7 @@ export class TodoService {
     }
   }
 
-  update(todo: Todo) {
+  update(todo: Todo): void {
     this.data.map(dataTodo => {
       if (dataTodo.id === todo.id) {
         dataTodo = todo;

@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "Segoe UI";
+  src: url("assets/fonts/SegoeUIRegular/SegoeUIRegular.eot");
+  src: url("assets/fonts/SegoeUIRegular/SegoeUIRegular.eot?#iefix") format("embedded-opentype"),
+  url("assets/fonts/SegoeUIRegular/SegoeUIRegular.woff") format("woff"),
+  url("assets/fonts/SegoeUIRegular/SegoeUIRegular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Segoe UI SemiBold";
+  src: url("assets/fonts/SegoeUISemiBold/SegoeUI-SemiBold.eot");
+  src: url("assets/fonts/SegoeUISemiBold/SegoeUI-SemiBold.eot?#iefix") format("embedded-opentype"),
+  url("assets/fonts/SegoeUISemiBold/SegoeUI-SemiBold.woff") format("woff"),
+  url("assets/fonts/SegoeUISemiBold/SegoeUI-SemiBold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Segoe UI Bold";
+  src: url("assets/fonts/SegoeUIBold/SegoeUI-Bold.eot");
+  src: url("assets/fonts/SegoeUIBold/SegoeUI-Bold.eot?#iefix") format("embedded-opentype"),
+  url("assets/fonts/SegoeUIBold/SegoeUI-Bold.woff") format("woff"),
+  url("assets/fonts/SegoeUIBold/SegoeUI-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+

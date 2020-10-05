@@ -1,27 +1,29 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {Todo} from '../../interfaces/todo';
-import {TodoService} from '../../services/todo.service';
+import { EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
+import { Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Todo } from '../../interfaces/todo';
+import { TodoService } from '../../services/todo.service';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css'],
-
-
 })
 export class EditComponent {
-  
-  @Output() public selectedTodo = new Todo();
+
+  @Input()
+  todo: Todo = null;
+
+  @Output()
+  updateEvent = new EventEmitter<void>();
 
   constructor(public todoService: TodoService) {
   }
 
-  @Output() onUpdate = new EventEmitter<boolean>()
-
-
-  update(todo: Todo) {
+  update(todo: Todo): void {
     this.todoService.update(todo);
-    this.onUpdate.emit()
+    this.updateEvent.emit();
   }
-  
+
 }

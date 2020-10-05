@@ -1,18 +1,14 @@
-
-        
-        <tr *ngFor="let item of todoService.get() ">
-          <td>
-            <input type="number" [(ngModel)]="item.id" readonly disabled class="form-control" />
-        </td>
-        <td>
-            <input type="text" [(ngModel)]="item.name" class="form-control" />
-        </td>
-        <td>
-            <input type="text" [(ngModel)]="item.description" class="form-control" />
-        </td>
-        <td>
-            <input type="button" value="Сохранить" (click)="update(item)" class="btn btn-success" />
-        </td>
-        <td>
-      
-      
+<tr>
+  <td>
+    <input type="number" [(ngModel)]="todo.id" readonly disabled class="form-control"/>
+  </td>
+  <td>
+    <input type="text" [(ngModel)]="todo.name" class="form-control"/>
+  </td>
+  <td>
+    <input type="text" [(ngModel)]="todo.description" class="form-control"/>
+  </td>
+  <td>
+    <input type="button" value="Сохранить" (click)="update(todo)" class="btn btn-success"/>
+  </td>
+</tr>

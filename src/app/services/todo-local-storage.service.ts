@@ -1,9 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Todo} from '../interfaces/todo';
+import { Injectable } from '@angular/core';
+import { Todo } from '../interfaces/todo';
 
 
 @Injectable()
-
 export class TodoLocalStorage {
 
   set(todos: Todo[]): void {
@@ -14,7 +13,7 @@ export class TodoLocalStorage {
     }
   }
 
-  get() {
+  get(): Todo[] {
     return JSON.parse(localStorage.getItem('todo'));
   }
 }
